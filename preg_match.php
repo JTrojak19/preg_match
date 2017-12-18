@@ -19,7 +19,7 @@ function pregMatchName(string $data){
 }
 echo pregMatchName($data);
 function pregMatchPrice(string $data){
-    $pattern = "#price__number\">.*<+#";
+    $pattern = "#price__number\">.*<#";
     preg_match($pattern, $data, $matches);
     $price = $matches[0];
     $patternToReplace = "#[^0-9]+#";
@@ -29,16 +29,22 @@ function pregMatchPrice(string $data){
 }
 echo pregMatchPrice($data);
 function pregMatchMainParameters(string $data){
-    $pattern = "#params__item\">\s+.*<#";
+    $pattern = "#params__item\">\s+.*[^<]#";
     preg_match_all($pattern, $data, $matches);
-    //var_dump($matches);
     foreach ($matches as $value)
     {
          $pattern = "#params__item\">#";
          $replaced = preg_replace($pattern, "", $value);
-         var_dump($replaced); 
+         //var_dump($replaced);
     }
+    $year = $replaced[0];
+    $milage = $replaced[1];
+    $typeOfFuel = $replaced[2];
+    $typeOfCar = $replaced[3];
+    $info = [$year, $milage, $typeOfFuel, $typeOfCar];
+    return $info;
+
 }
-pregMatchMainParameters($data);
+var_dump(pregMatchMainParameters($data));
 
 
