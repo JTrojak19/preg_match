@@ -41,10 +41,13 @@ function pregMatchMainParameters(string $data){
     $milage = $replaced[1];
     $typeOfFuel = $replaced[2];
     $typeOfCar = $replaced[3];
-    $info = [$year, $milage, $typeOfFuel, $typeOfCar];
+    $info = ["year" =>$year, "milage" =>$milage, "fuel" =>$typeOfFuel, "type" =>$typeOfCar];
     return $info;
 
 }
-var_dump(pregMatchMainParameters($data));
+$parameters = pregMatchMainParameters($data);
+foreach ($parameters as $key =>$value){
+    echo "<br>".$key. ': '.$value;
+}
 
 
