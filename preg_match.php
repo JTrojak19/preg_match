@@ -84,4 +84,10 @@ function pregMatchHorsePower(string $data){
     return "<br>Horse power: ".$horsePower;
 }
 echo pregMatchHorsePower($data);
-
+function pregMatchSeries(string $data){
+    $pattern = "#Seria\s[0-9]#";
+    preg_match($pattern, $data, $matches);
+    $series = $matches[0];
+    return "<br>Series: ".$series;
+}
+echo pregMatchSeries($data);
