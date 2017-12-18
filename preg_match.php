@@ -28,6 +28,17 @@ function pregMatchPrice(string $data){
 
 }
 echo pregMatchPrice($data);
-
+function pregMatchMainParameters(string $data){
+    $pattern = "#params__item\">\s+.*<#";
+    preg_match_all($pattern, $data, $matches);
+    //var_dump($matches);
+    foreach ($matches as $value)
+    {
+         $pattern = "#params__item\">#";
+         $replaced = preg_replace($pattern, "", $value);
+         var_dump($replaced); 
+    }
+}
+pregMatchMainParameters($data);
 
 
