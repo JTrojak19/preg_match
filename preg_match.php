@@ -7,7 +7,7 @@ function curl(string $source){
     curl_close($ch);
     return $data;
 }
-$subject = "https://www.otomoto.pl/oferta/bmw-seria-4-leasing-do-przejecia-cesja-zgoda-na-ubezpieczenie-obce-ID6zoTxu.html";
+$subject = "https://www.otomoto.pl/oferta/bmw-seria-3-328i-xdrive-gran-turismo-m-pakiet-ID6zniRZ.html";
 $data = curl($subject);
 function pregMatchName(string $data){
     $pattern = "#big-text\">\s+[A-Z]+#";
@@ -56,6 +56,32 @@ function pregMatchEngineCode(string $data){
     return "<br>Engine Code: ".$code;
 }
 echo pregMatchEngineCode($data);
-
-
+function pregMatchCylinderCapacity(string $data){
+    $pattern = "#params__value\">\s+.*cm3#";
+    preg_match($pattern, $data, $matches);
+    $cylinderCapacity = $matches[0];
+    $pattern2 = "#[^0-9]{4}#";
+    $capacity = preg_replace($pattern2, "", $cylinderCapacity);
+    return "<br>Cylinder Capacity: ". $capacity;
+}
+echo pregMatchCylinderCapacity($data);
+function pregMatchVIN(string $data){
+    $pattern = "#VIN</span>\s+<div class=\"offer-params__value\">.*</div#msiU";
+    preg_match($pattern, $data, $matches);
+    $number = $matches[0];
+    $pattern2= "#(VIN)([^A-Z0-9]+)#";
+    $vin = preg_replace($pattern2,"", $number);
+    return "<br>VIN: ". $vin;
+}
+echo pregMatchVIN($data);
+echo "<br>";
+function pregMatchHorsePower(string $data){
+    $pattern = "#Moc</span>\s<div class=\"offer-params__value\">\s.*</div#";
+    preg_match($pattern, $data, $matches);
+    $power = $matches[0];
+    $pattern2 = "#[^0-9]+#";
+    $horsePower = preg_replace($pattern2, "", $power);
+    return "<br>Horse power: ".$horsePower;
+}
+echo pregMatchHorsePower($data);
 
