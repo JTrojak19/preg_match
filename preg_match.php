@@ -35,7 +35,6 @@ function pregMatchMainParameters(string $data){
     {
          $pattern = "#params__item\">#";
          $replaced = preg_replace($pattern, "", $value);
-         //var_dump($replaced);
     }
     $year = $replaced[0];
     $milage = $replaced[1];
@@ -43,11 +42,20 @@ function pregMatchMainParameters(string $data){
     $typeOfCar = $replaced[3];
     $info = ["year" =>$year, "milage" =>$milage, "fuel" =>$typeOfFuel, "type" =>$typeOfCar];
     return $info;
-
 }
 $parameters = pregMatchMainParameters($data);
 foreach ($parameters as $key =>$value){
     echo "<br>".$key. ': '.$value;
 }
+function pregMatchEngineCode(string $data){
+    $pattern = "#title=\"[0-9]{3}#msiU";
+    preg_match($pattern, $data, $matches);
+    $engineCode = $matches[0];
+    $pattern2 = "#[^0-9]+#";
+    $code = preg_replace($pattern2, "", $engineCode);
+    return "<br>Engine Code: ".$code;
+}
+echo pregMatchEngineCode($data);
+
 
 
